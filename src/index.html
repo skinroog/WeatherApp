@@ -8,6 +8,49 @@
   </head>
   <body>
 
+    <section class="app">
+
+      <div class="app__search-wrapper">
+        <form class="form-search">
+          <input class="form-search__input" type="search" name="place" placeholder="Введите город...">
+          <button class="form-search__button" type="submit">Поиск</button>
+        </form>
+        <button class="app__search-location" type="button">Текущее местоположение</button>
+      </div>
+
+      <h2 class="app__location">Город</h2>
+      <p class="app__date">dd.mm.yyyy</p>
+
+      <div class="weather-main">
+        <img class="weather-main__icon" src="">
+        <p class="weather-main__temp">--<span class="weather-main__temp-unit">°С</span></p>
+        <span class="weather-main__desc">Описание</span>
+        <p class="weather-main__feels-like">Ощущается как: <span class="weather-main__feels-like-value">--</span></p>
+      </div>
+
+      <div class="weather-details">
+        <ul class="weather-details__list">
+          <li class="weather-details__item">
+            <span class="weather-details__value" data-name="wind">00</span>
+            <span class="weather-details__name">ветер</span>
+          </li>
+          <li class="weather-details__item">
+            <span class="weather-details__value" data-name="humidity">00</span>
+            <span class="weather-details__name">влажность</span>
+          </li>
+          <li class="weather-details__item">
+            <span class="weather-details__value" data-name="pressure">00</span>
+            <span class="weather-details__name">давление</span>
+          </li>
+          <li class="weather-details__item">
+            <span class="weather-details__value" data-name="clouds">00</span>
+            <span class="weather-details__name">облачность</span>
+          </li>
+        </ul>
+      </div>
+
+    </section>
+
     <script src="js/script.js"></script>
   </body>
 </html>
