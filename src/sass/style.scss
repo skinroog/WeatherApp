@@ -1,3 +1,5 @@
-body::placeholder {
-  background-color: violet;
-}
+@import './global.scss';
+@import 'blocks/app.scss';
+@import 'blocks/form-search.scss';
+@import 'blocks/weather-main.scss';
+@import 'blocks/weather-details.scss';

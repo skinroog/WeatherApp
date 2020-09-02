@@ -1,0 +1,73 @@
+.form-search {
+  position: relative;
+}
+
+.form-search__input{
+  display: block;
+  box-sizing: border-box;
+  width: calc(100% - 40px);
+  height: 40px;
+  padding: 10px 40px 10px 15px;
+  margin-right: 40px;
+
+  color: $grey;
+  font-family: inherit;
+  font-size: 18px;
+
+  background-color: $black-form;
+  border: none;
+  outline: none;
+
+  &:focus {
+    background-color: $black-background;
+  }
+}
+
+.form-search__button {
+  position: absolute;
+  top: 0;
+  right: 40px;
+
+  display: block;
+  width: 40px;
+  height: 40px;
+
+  background: transparent url("../img/search.svg") no-repeat center center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 1;
+  }
+}
+
+.app__search-location {
+  position: absolute;
+  top: 0;
+  right: 0;
+
+  display: block;
+  width: 40px;
+  height: 40px;
+
+  background: transparent url("../img/pin.svg") no-repeat center center;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 0.7;
+  }
+
+  &:active {
+    opacity: 1;
+  }
+
+}

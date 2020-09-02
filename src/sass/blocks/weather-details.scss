@@ -1,0 +1,35 @@
+.weather-details {
+  padding: 0 15px;
+}
+
+.weather-details__list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.weather-details__list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.weather-details__item {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-bottom: 20px;
+
+  text-align: center;
+}
+
+.weather-details__value {
+  margin-bottom: 5px;
+
+  font-size: 20px;
+}
+
+.weather-details__name {
+  font-size: 16px;
+
+  opacity: 0.8;
+}

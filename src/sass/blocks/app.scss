@@ -1,0 +1,31 @@
+.app {
+  width: 90%;
+  max-width: 450px;
+  margin: 30px auto;
+  padding-bottom: 10px;
+
+  background-color: $black-background;
+}
+
+.app__search-wrapper {
+  position: relative;
+
+  margin-bottom: 35px;
+}
+
+.app__location {
+  margin: 0;
+  margin-bottom: 10px;
+  padding: 0 15px;
+
+  font-size: 33px;
+  line-height: 36px;
+  font-weight: normal;
+}
+
+.app__date {
+  margin: 0;
+  margin-bottom: 25px;
+
+  padding: 0 15px;
+}
