@@ -17,6 +17,7 @@
     "url": "https://github.com/skinroog/WeatherApp/issues"
   },
   "homepage": "https://github.com/skinroog/WeatherApp#readme",
+  "browserslist": [ "last 2 Chrome versions" ],
   "devDependencies": {
     "autoprefixer": "^9.8.6",
     "cssnano": "^4.1.10",
