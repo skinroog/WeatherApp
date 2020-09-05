@@ -5,17 +5,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Weather App</title>
     <link rel="stylesheet" href="sass/style.scss">
+    <script src="https://api-maps.yandex.ru/2.1/?apikey=cd0bd47c-5f52-4228-b580-3cde6b7d8c6b&lang=ru_RU" type="text/javascript">
+    </script>
   </head>
   <body>
 
     <main class="app">
 
       <div class="app__search-wrapper">
-        <form class="form-search">
-          <input class="form-search__input" type="text" name="place" placeholder="Введите город...">
+        <form class="form-search" data-search-form>
+          <input class="form-search__input" type="text" name="place" placeholder="Введите город..." data-search-input>
           <button class="form-search__button" type="submit"><span class="visually-hidden">Поиск</span></button>
         </form>
-        <button class="app__search-location" type="button"><span class="visually-hidden">Текущее местоположение</span></button>
+        <button class="app__search-location" type="button" data-location-button><span class="visually-hidden">Текущее местоположение</span></button>
       </div>
 
       <h2 class="app__location">Город</h2>
@@ -53,6 +55,6 @@
 
     </main>
 
-    <script src="js/script.js"></script>
+    <script defer src="js/script.js"></script>
   </body>
 </html>
