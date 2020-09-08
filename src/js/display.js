@@ -1,4 +1,4 @@
-export default function displayWeather(weather, address) {
+export default async function displayWeather(weather, address) {
   clearSearchValue();
 
   const place = document.querySelector('.app__location');
@@ -35,6 +35,16 @@ export default function displayWeather(weather, address) {
 
   const icon = document.querySelector('.weather-main__icon');
   icon.src = `icons/${weather.icon}.svg`;
+
+  let backgroundImageSrc;
+
+  try {
+    backgroundImageSrc = await getPixabyPicture(weather.description);
+  } catch (error) {
+    backgroundImageSrc = 'default-background.jpg';
+  }
+
+  document.body.style.backgroundImage = `url(${backgroundImageSrc})`;
 }
 
 function initChangeUnitsListener(temperature, feelsLike) {
@@ -60,4 +70,17 @@ function formatTemperature(value) {
   value = Math.round(value);
   if (value > 0) return `+${value}`;
   return value;
+}
+
+async function getPixabyPicture(description) {
+  const queryText = description.replace(/\s/g, '+');
+
+  const apiKey = '18227191-fcb06157a5540c6d2c9d55d91';
+  const response = await fetch(`https://pixabay.com/api/?key=${apiKey}&q=${queryText}&lang=ru&image_type=photo&category=backgrounds+nature+places&per_page=3`);
+
+  if (!response.ok) throw new Error('Image did not received');
+
+  const result = await response.json();
+
+  return result.hits[0].largeImageURL;
 }

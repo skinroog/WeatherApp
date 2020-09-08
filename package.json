@@ -25,6 +25,9 @@
         {
           "staticPath": "src/img/icons",
           "staticOutDir": "icons"
+        },
+        {
+          "staticPath": "src/img/default-background.jpg"
         }
     ]
   },
