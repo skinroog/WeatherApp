@@ -25,11 +25,16 @@
 .weather-details__value {
   margin-bottom: 5px;
 
-  font-size: 20px;
+  font-size: 18px;
 }
 
 .weather-details__name {
-  font-size: 16px;
-
   opacity: 0.8;
 }
+
+@media (min-width: $full-width) {
+  .weather-details__value {
+    font-size: 20px;
+  }
+}
+

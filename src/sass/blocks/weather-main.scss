@@ -34,13 +34,15 @@
 
 .weather-main__temp {
   margin-top: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 23px;
 
-  font-size: 44px;
-  line-height: 46px;
+  font-size: 40px;
+  line-height: 42px;
 }
 
 .weather-main__temp-unit {
+  color: #99C8DF;
+
   cursor: pointer;
 
   &:hover {
@@ -50,18 +52,26 @@
 
 .weather-main__desc {
   margin: 0;
-  margin-bottom: 10px;
+  margin-bottom: 15px;
 }
 
 .weather-main__feels-like {
   margin: 0;
   margin-bottom: 10px;
+
+  font-size: 14px;
+  line-height: 18px;
 }
 
-@media (min-width: 500px) {
+@media (min-width: $full-width) {
   .weather-main__temp {
-    font-size: 64px;
-    line-height: 66px;
+    font-size: 54px;
+    line-height: 56px;
+  }
+
+  .weather-main__feels-like {
+    font-size: 17px;
+    line-height: 21px;
   }
 }
 

@@ -1,6 +1,8 @@
 $grey: #D0D0D0;
-$black-background: rgba(0, 0, 0, 0.6);
+$black-background: rgba(0, 0, 0, 0.8);
 $black-form: rgba(0, 0, 0, 0.4);
+
+$full-width: 500px;
 
 body {
   margin: 0;
@@ -9,11 +11,18 @@ body {
 
   color: white;
   font-family: "Verdana", "Geneva", sans-serif;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 15px;
+  line-height: 19px;
 
-  background: url('../82877075.jpg') 0 0 no-repeat;
+  background: url('../img/default-background.jpg') 0 0 no-repeat;
   background-size: cover;
+}
+
+@media (min-width: $full-width) {
+  body {
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
 
 .visually-hidden:not(:focus):not(:active),

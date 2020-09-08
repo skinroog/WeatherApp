@@ -2,7 +2,7 @@
   position: relative;
 }
 
-.form-search__input{
+.form-search__input {
   display: block;
   box-sizing: border-box;
   width: calc(100% - 40px);
@@ -12,7 +12,7 @@
 
   color: $grey;
   font-family: inherit;
-  font-size: 18px;
+  font-size: 15px;
 
   background-color: $black-form;
   border: none;
@@ -69,5 +69,10 @@
   &:active {
     opacity: 1;
   }
+}
 
+@media (min-width: $full-width) {
+  .form-search__input {
+    font-size: 18px;
+  }
 }
