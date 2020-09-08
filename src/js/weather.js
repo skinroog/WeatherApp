@@ -16,5 +16,6 @@ function filterWeatherResults(results) {
     humidity: results.main.humidity,
     pressure: results.main.pressure,
     clouds: results.clouds.all,
+    icon: results.weather[0].icon,
   };
 }

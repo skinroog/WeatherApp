@@ -17,13 +17,24 @@
     "url": "https://github.com/skinroog/WeatherApp/issues"
   },
   "homepage": "https://github.com/skinroog/WeatherApp#readme",
-  "browserslist": [ "last 2 Chrome versions" ],
+  "browserslist": [
+    "last 2 Chrome versions"
+  ],
+  "staticFiles": {
+    "staticPath": [
+        {
+          "staticPath": "src/img/icons",
+          "staticOutDir": "icons"
+        }
+    ]
+  },
   "devDependencies": {
     "autoprefixer": "^9.8.6",
     "cssnano": "^4.1.10",
     "eslint": "^7.7.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
+    "parcel-plugin-static-files-copy": "^2.5.0",
     "postcss-modules": "^3.2.2",
     "sass": "^1.26.10"
   }

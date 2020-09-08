@@ -26,11 +26,15 @@ export default function displayWeather(weather, address) {
   function clearSearchValue() {
     const inputSearch = document.querySelector('[data-search-input]');
     inputSearch.value = '';
+    inputSearch.blur();
   }
 
   function changePressureUnits(value) {
     return Math.round(value * 0.75006375541921);
   }
+
+  const icon = document.querySelector('.weather-main__icon');
+  icon.src = `icons/${weather.icon}.svg`;
 }
 
 function initChangeUnitsListener(temperature, feelsLike) {
