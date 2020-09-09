@@ -1,13 +1,28 @@
+import { addWarning } from './display';
+
 function getPosition() {
   return new Promise((resolve, reject) => {
     navigator.geolocation.getCurrentPosition(resolve, reject);
   });
 }
 
-export default async function getUserLocation() {
-  const position = await getPosition();
+export async function getUserLocation() {
+  let position;
 
-  const response = await fetch(`https://geocode-maps.yandex.ru/1.x?geocode=${position.coords.longitude},${position.coords.latitude}&apikey=cd0bd47c-5f52-4228-b580-3cde6b7d8c6b&format=json&results=1`);
+  try {
+    position = await getPosition();
+  } catch (error) {
+    if (error instanceof GeolocationPositionError && error.code === 1) {
+      addWarning('Вы запретили определение геолокации. Найдите свой город\u00A0выше!\u00A0👆🏼');
+    }
+    throw error;
+  }
+
+  const apiKey = 'cd0bd47c-5f52-4228-b580-3cde6b7d8c6b';
+  const response = await fetch(`https://geocode-maps.yandex.ru/1.x?geocode=${position.coords.longitude},${position.coords.latitude}&apikey=${apiKey}&format=json&results=1`);
+
+  if (!response.ok) throw new Error(response.status);
+
   const result = await response.json();
 
   const cityName = result.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.AdministrativeArea.Locality.LocalityName;

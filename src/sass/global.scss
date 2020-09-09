@@ -18,13 +18,6 @@ body {
   background-size: cover;
 }
 
-@media (min-width: $full-width) {
-  body {
-    font-size: 18px;
-    line-height: 22px;
-  }
-}
-
 .visually-hidden:not(:focus):not(:active),
 input[type="checkbox"].visually-hidden,
 input[type="radio"].visually-hidden {
@@ -45,4 +38,24 @@ input[type="radio"].visually-hidden {
 
 ymaps[class*="search__suggest"] {
   color: black;
+}
+
+.warning-element {
+  margin-left: 15px;
+
+  color: pink;
+  font-size: 9px;
+  line-height: 12px;
+}
+
+@media (min-width: $full-width) {
+  body {
+    font-size: 18px;
+    line-height: 22px;
+  }
+
+  .warning-element {
+    font-size: 10.5px;
+    line-height: 14px;
+  }
 }

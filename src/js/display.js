@@ -1,4 +1,4 @@
-export default async function displayWeather(weather, address) {
+export async function displayWeather(weather, address) {
   clearSearchValue();
 
   const place = document.querySelector('.app__location');
@@ -84,3 +84,24 @@ async function getPixabyPicture(description) {
 
   return result.hits[0].largeImageURL;
 }
+
+export function addWarning(message) {
+  const formSearch = document.querySelector('[data-search-form]');
+  const inputSearch = document.querySelector('[data-search-input]');
+  const locationButton = document.querySelector('[data-location-button]');
+
+  const warningElement = document.createElement('span');
+  formSearch.append(warningElement);
+
+  warningElement.textContent = message;
+  warningElement.className = 'warning-element';
+  warningElement.style.position = 'absolute';
+  warningElement.style.left = '0';
+  warningElement.style.top = `${formSearch.offsetHeight + 5}px`;
+
+  const removeWarningElement = () => warningElement.remove();
+  inputSearch.addEventListener('input', removeWarningElement);
+  formSearch.addEventListener('submit', removeWarningElement);
+  locationButton.addEventListener('click', removeWarningElement);
+}
+

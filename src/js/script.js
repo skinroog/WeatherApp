@@ -1,17 +1,22 @@
-import getWeather from './weather';
-import getUserLocation from './location';
-import initSearchListeners from './search';
-import displayWeather from './display';
+import { getWeather } from './weather';
+import { getUserLocation } from './location';
+import { initSearchListeners } from './search';
+import { displayWeather } from './display';
 
-startApp();
-setCurrentDate();
-initSearchListeners();
+window.addEventListener('load', () => {
+  window.addEventListener('unhandledrejection', (event) => {
+    console.log(event);
+  });
 
-async function startApp() {
+  showUserLocalWeather();
+  setCurrentDate();
+  initSearchListeners();
+});
+
+async function showUserLocalWeather() {
   const location = await getUserLocation();
   const weather = await getWeather(location.latitude, location.longitude);
-
-  displayWeather(weather, location.address);
+  await displayWeather(weather, location.address);
 }
 
 function setCurrentDate() {
