@@ -4,15 +4,8 @@ import { initSearchListeners } from './search';
 import { displayWeather, togglePreloader } from './display';
 
 window.addEventListener('load', () => {
-  window.addEventListener('unhandledrejection', (event) => {
-    togglePreloader();
-    console.log(event);
-  });
-
-  window.onerror = (error) => {
-    togglePreloader();
-    console.log(error);
-  }
+  window.onerror = togglePreloader;
+  window.addEventListener('unhandledrejection', togglePreloader);
 
   showUserLocalWeather();
   setCurrentDate();

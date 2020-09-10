@@ -24,7 +24,10 @@ function initInputSearch() {
 
     const searchValue = searchInput.value;
 
-    if (!searchValue) return;
+    if (!searchValue) {
+      togglePreloader();
+      return;
+    }
 
     const apiKey = 'cd0bd47c-5f52-4228-b580-3cde6b7d8c6b';
     const response = await fetch(`https://geocode-maps.yandex.ru/1.x?geocode=${searchValue}&apikey=${apiKey}&format=json&results=1`);
@@ -34,14 +37,21 @@ function initInputSearch() {
     const result = await response.json();
 
     if (result.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.found === '0') {
-      addWarning('По вашему запросу город на найден 😞. Попробуйте снова!');
+      addWarning('По вашему запросу город не найден 😞. Попробуйте снова!');
       togglePreloader();
       return;
     }
 
     const coords = result.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos;
 
-    const cityName = result.response.GeoObjectCollection.featureMember[0].GeoObject.name;
+    let cityName;
+
+    for (let component of result.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.Components) {
+      if (component.kind === 'locality') cityName = component.name;
+    }
+
+    if (!cityName) cityName = result.response.GeoObjectCollection.featureMember[0].GeoObject.name;
+
     const countryName = result.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryName;
 
     if (cityName === countryName) {
