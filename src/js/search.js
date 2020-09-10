@@ -1,6 +1,6 @@
 import { getWeather } from './weather';
 import { getUserLocation } from './location';
-import { displayWeather, addWarning } from './display';
+import { displayWeather, addWarning, togglePreloader } from './display';
 
 export function initSearchListeners() {
   initInputSearch();
@@ -20,6 +20,8 @@ function initInputSearch() {
   searchForm.addEventListener('submit', async (event) => {
     event.preventDefault();
 
+    togglePreloader();
+
     const searchValue = searchInput.value;
 
     if (!searchValue) return;
@@ -33,6 +35,7 @@ function initInputSearch() {
 
     if (result.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.found === '0') {
       addWarning('По вашему запросу город на найден 😞. Попробуйте снова!');
+      togglePreloader();
       return;
     }
 
@@ -43,6 +46,7 @@ function initInputSearch() {
 
     if (cityName === countryName) {
       addWarning('Введите корректное название города 😕');
+      togglePreloader();
       return;
     }
 
@@ -50,7 +54,9 @@ function initInputSearch() {
 
     const weather = await getWeather(...coords.split(' ').reverse().map((i) => +i));
 
-    displayWeather(weather, address);
+    await displayWeather(weather, address);
+
+    togglePreloader();
   });
 }
 
@@ -58,8 +64,10 @@ function initLocationSearch() {
   const locationButton = document.querySelector('[data-location-button]');
 
   locationButton.addEventListener('click', async () => {
+    togglePreloader();
     const location = await getUserLocation();
     const weather = await getWeather(location.latitude, location.longitude);
-    displayWeather(weather, location.address);
+    await displayWeather(weather, location.address);
+    togglePreloader();
   });
 }

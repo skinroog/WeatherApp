@@ -44,7 +44,7 @@ export async function displayWeather(weather, address) {
     backgroundImageSrc = 'default-background.jpg';
   }
 
-  document.body.style.backgroundImage = `url(${backgroundImageSrc})`;
+  await setBodyBackgroundImage(backgroundImageSrc);
 }
 
 function initChangeUnitsListener(temperature, feelsLike) {
@@ -85,6 +85,16 @@ async function getPixabyPicture(description) {
   return result.hits[0].largeImageURL;
 }
 
+function setBodyBackgroundImage(url) {
+  return new Promise((resolve) => {
+    const img = new Image();
+    img.src = url;
+
+    document.body.style.backgroundImage = `url(${url})`;
+    img.onload = resolve;
+  });
+}
+
 export function addWarning(message) {
   const formSearch = document.querySelector('[data-search-form]');
   const inputSearch = document.querySelector('[data-search-input]');
@@ -105,3 +115,7 @@ export function addWarning(message) {
   locationButton.addEventListener('click', removeWarningElement);
 }
 
+export function togglePreloader() {
+  const preloaderElement = document.querySelector('[data-preloader]');
+  preloaderElement.classList.toggle('preloader--show');
+}
