@@ -10,10 +10,13 @@ export async function getUserLocation() {
   let position;
 
   try {
+    if (localStorage.getItem('locationAllowed') === 'false') throw new Error('Geolocation does not allowed');
     position = await getPosition();
+    localStorage.setItem('locationAllowed', true);
   } catch (error) {
-    if (error instanceof GeolocationPositionError && error.code === 1) {
+    if (error instanceof GeolocationPositionError && error.code === 1 || error.message === 'Geolocation does not allowed') {
       addWarning('Вы запретили определение геолокации. Найдите свой город\u00A0выше!\u00A0👆🏼');
+      localStorage.setItem('locationAllowed', false);
     }
     throw error;
   }
