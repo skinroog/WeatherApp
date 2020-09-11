@@ -29,42 +29,47 @@ function initInputSearch() {
       return;
     }
 
-    const apiKey = 'cd0bd47c-5f52-4228-b580-3cde6b7d8c6b';
-    const response = await fetch(`https://geocode-maps.yandex.ru/1.x?geocode=${searchValue}&apikey=${apiKey}&format=json&results=1`);
+    try {
+      const apiKey = 'cd0bd47c-5f52-4228-b580-3cde6b7d8c6b';
+      const response = await fetch(`https://geocode-maps.yandex.ru/1.x?geocode=${searchValue}&apikey=${apiKey}&format=json&results=1`);
 
-    if (!response.ok) throw new Error(response.status);
+      if (!response.ok) throw new Error(response.status);
 
-    const result = await response.json();
+      const result = await response.json();
 
-    if (result.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.found === '0') {
-      addWarning('По вашему запросу город не найден 😞. Попробуйте снова!');
-      togglePreloader();
-      return;
+      if (result.response.GeoObjectCollection.metaDataProperty.GeocoderResponseMetaData.found === '0') {
+        addWarning('По вашему запросу город не найден 😞. Попробуйте снова!');
+        togglePreloader();
+        return;
+      }
+
+      const coords = result.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos;
+
+      let cityName;
+
+      for (let component of result.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.Components) {
+        if (component.kind === 'locality') cityName = component.name;
+      }
+
+      if (!cityName) cityName = result.response.GeoObjectCollection.featureMember[0].GeoObject.name;
+
+      const countryName = result.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryName;
+
+      if (cityName === countryName) {
+        addWarning('Введите корректное название города 😕');
+        togglePreloader();
+        return;
+      }
+
+      const address = `${cityName}, ${countryName}`;
+
+      const weather = await getWeather(...coords.split(' ').reverse().map((i) => +i));
+
+      await displayWeather(weather, address);
+
+    } catch (error) {
+      console.log(error);
     }
-
-    const coords = result.response.GeoObjectCollection.featureMember[0].GeoObject.Point.pos;
-
-    let cityName;
-
-    for (let component of result.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.Address.Components) {
-      if (component.kind === 'locality') cityName = component.name;
-    }
-
-    if (!cityName) cityName = result.response.GeoObjectCollection.featureMember[0].GeoObject.name;
-
-    const countryName = result.response.GeoObjectCollection.featureMember[0].GeoObject.metaDataProperty.GeocoderMetaData.AddressDetails.Country.CountryName;
-
-    if (cityName === countryName) {
-      addWarning('Введите корректное название города 😕');
-      togglePreloader();
-      return;
-    }
-
-    const address = `${cityName}, ${countryName}`;
-
-    const weather = await getWeather(...coords.split(' ').reverse().map((i) => +i));
-
-    await displayWeather(weather, address);
 
     togglePreloader();
   });
@@ -75,9 +80,15 @@ function initLocationSearch() {
 
   locationButton.addEventListener('click', async () => {
     togglePreloader();
-    const location = await getUserLocation();
-    const weather = await getWeather(location.latitude, location.longitude);
-    await displayWeather(weather, location.address);
+
+    try {
+      const location = await getUserLocation();
+      const weather = await getWeather(location.latitude, location.longitude);
+      await displayWeather(weather, location.address);
+    } catch (error) {
+      console.log(error);
+    }
+
     togglePreloader();
   });
 }

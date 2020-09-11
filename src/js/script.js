@@ -3,20 +3,29 @@ import { getUserLocation } from './location';
 import { initSearchListeners } from './search';
 import { displayWeather, togglePreloader } from './display';
 
-window.addEventListener('load', () => {
+window.addEventListener('load', async () => {
   window.onerror = togglePreloader;
-  window.addEventListener('unhandledrejection', togglePreloader);
 
-  showUserLocalWeather();
-  setCurrentDate();
-  initSearchListeners();
+  try {
+    await showUserLocalWeather();
+    setCurrentDate();
+    initSearchListeners();
+  } catch (error) {
+    console.log(error);
+  }
 });
 
 async function showUserLocalWeather() {
   togglePreloader();
-  const location = await getUserLocation();
-  const weather = await getWeather(location.latitude, location.longitude);
-  await displayWeather(weather, location.address);
+
+  try {
+    const location = await getUserLocation();
+    const weather = await getWeather(location.latitude, location.longitude);
+    await displayWeather(weather, location.address);
+  } catch (error) {
+    console.log(error);
+  }
+
   togglePreloader();
 }
 
